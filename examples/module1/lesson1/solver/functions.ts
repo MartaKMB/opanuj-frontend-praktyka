@@ -1,13 +1,13 @@
-export function f1(a, b) {
+export function addictionFun(a: number, b: number) {
   return a + b;
 }
-export function f2(a, b) {
+export function substractionFun(a: number, b: number) {
   return a - b;
 }
-export function f3(a, b) {
+export function multiplicationFun(a: number, b: number) {
   return a * b;
 }
 
-export function f4(a, b) {
+export function divisionFun(a: number, b: number) {
   return a / b;
 }
