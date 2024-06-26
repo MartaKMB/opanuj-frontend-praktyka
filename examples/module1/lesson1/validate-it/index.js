@@ -1,31 +1,20 @@
 function validator() {
   const input = document.getElementById('input');
-  const button = document.getElementById('button');
-  const button2 = document.getElementById('button2');
+  const validateBtn = document.getElementById('validateBtn');
+  const clearBtn = document.getElementById('clearBtn');
   const result = document.getElementById('result');
 
-  button.addEventListener('click', () => {
-    if (input.value) {
-      if (Number.isInteger(input.value)) {
-        if (
-          Number(input.value) > 0 &&
-          Number(input.value) < 100 &&
-          Number(input.value) % 2 === 0
-        ) {
-          result.innerHTML = 'Valid';
-        } else {
-          result.innerHTML = 'Invalid';
-        }
-        result.innerHTML = 'Valid';
-      } else {
-        result.innerHTML = 'Invalid';
-      }
-    } else {
-      result.innerHTML = 'Invalid';
-    }
+  validateBtn.addEventListener('click', () => {
+    const inputValue = Number(input.value);
+    const isValueNumber = Number.isInteger(inputValue);
+    const isNumberCorrect = inputValue > 0 && inputValue < 100 && inputValue % 2 === 0;
+
+    if (!inputValue || !isValueNumber) result.innerHTML = 'Invalid';
+
+    if (isValueNumber) result.innerHTML = isNumberCorrect ? 'Valid' : 'Invalid';
   });
 
-  button2.addEventListener('click', () => {
+  clearBtn.addEventListener('click', () => {
     input.value = '';
     result.innerHTML = '';
   });
