@@ -1,35 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import { addictionFun, substractionFun, multiplicationFun, divisionFun } from './functions';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [numA, setNumA] = useState<number>(0);
+  const [numB, setNumB] = useState<number>(0);
+  const [numC, setNumC] = useState<number | string>(0);
+
+  const doWork = (func: (a: number, b: number) => number) => {
+    setNumC(func(numA, numB));
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div>
+      <div className="grid grid-cols-2 gap-x-4">
+        <input
+          type="number"
+          className="rounded-md shadow-md p-4"
+          value={numA}
+          onChange={(e) => setNumA(parseFloat(e.target.value))}
+        />
+        <input
+          type="number"
+          className="rounded-md shadow-md p-4"
+          value={numB}
+          onChange={(e) => setNumB(parseFloat(e.target.value))}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+      <div className="grid grid-cols-4 gap-x-4 my-4">
+        <button
+          className="bg-blue-200 px-2 py-4 text-lg hover:bg-blue-500 hover:text-white rounded-md"
+          onClick={() => doWork(addictionFun)}
+        >
+          +
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <button
+          className="bg-blue-200 px-2 py-4 text-lg hover:bg-blue-500 hover:text-white rounded-md"
+          onClick={() => doWork(substractionFun)}
+        >
+          -
+        </button>
+        <button
+          className="bg-blue-200 px-2 py-4 text-lg hover:bg-blue-500 hover:text-white rounded-md"
+          onClick={() => doWork(multiplicationFun)}
+        >
+          *
+        </button>
+        <button
+          className="bg-blue-200 px-2 py-4 text-lg hover:bg-blue-500 hover:text-white rounded-md"
+          onClick={() => doWork(divisionFun)}
+        >
+          /
+        </button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <div>Result: {numC}</div>
+    </div>
+  );
+};
 
-export default App
+export default App;
