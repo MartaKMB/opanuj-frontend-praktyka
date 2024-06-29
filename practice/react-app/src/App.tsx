@@ -1,58 +1,39 @@
 import React, { useState } from 'react';
 import { addictionFun, substractionFun, multiplicationFun, divisionFun } from './functions';
+import { ButtonComponent } from './ButtonComponent';
 
 const App = () => {
-  const [numA, setNumA] = useState<number>(0);
-  const [numB, setNumB] = useState<number>(0);
-  const [numC, setNumC] = useState<number | string>(0);
+  const [firstNum, setFirstNum] = useState<number>(0);
+  const [secondNum, setSecondNum] = useState<number>(0);
+  const [resultNum, setResultNum] = useState<number | string>(0);
 
-  const doWork = (func: (a: number, b: number) => number) => {
-    setNumC(func(numA, numB));
+  const calculateResult = (func: (a: number, b: number) => number) => {
+    setResultNum(func(firstNum, secondNum));
   };
 
   return (
     <div>
       <div className="grid grid-cols-2 gap-x-4">
-        <input
+      <input
           type="number"
           className="rounded-md shadow-md p-4"
-          value={numA}
-          onChange={(e) => setNumA(parseFloat(e.target.value))}
+          value={firstNum}
+          onChange={(e) => setFirstNum(parseFloat(e.target.value))}
         />
         <input
           type="number"
           className="rounded-md shadow-md p-4"
-          value={numB}
-          onChange={(e) => setNumB(parseFloat(e.target.value))}
+          value={secondNum}
+          onChange={(e) => setSecondNum(parseFloat(e.target.value))}
         />
       </div>
       <div className="grid grid-cols-4 gap-x-4 my-4">
-        <button
-          className="bg-blue-200 px-2 py-4 text-lg hover:bg-blue-500 hover:text-white rounded-md"
-          onClick={() => doWork(addictionFun)}
-        >
-          +
-        </button>
-        <button
-          className="bg-blue-200 px-2 py-4 text-lg hover:bg-blue-500 hover:text-white rounded-md"
-          onClick={() => doWork(substractionFun)}
-        >
-          -
-        </button>
-        <button
-          className="bg-blue-200 px-2 py-4 text-lg hover:bg-blue-500 hover:text-white rounded-md"
-          onClick={() => doWork(multiplicationFun)}
-        >
-          *
-        </button>
-        <button
-          className="bg-blue-200 px-2 py-4 text-lg hover:bg-blue-500 hover:text-white rounded-md"
-          onClick={() => doWork(divisionFun)}
-        >
-          /
-        </button>
+        <ButtonComponent handleOnClick={() => calculateResult(addictionFun)} >+</ButtonComponent>
+        <ButtonComponent handleOnClick={() => calculateResult(substractionFun)} >-</ButtonComponent>
+        <ButtonComponent handleOnClick={() => calculateResult(multiplicationFun)} >*</ButtonComponent>
+        <ButtonComponent handleOnClick={() => calculateResult(divisionFun)} >/</ButtonComponent>
       </div>
-      <div>Result: {numC}</div>
+      <div>Result: {resultNum}</div>
     </div>
   );
 };
