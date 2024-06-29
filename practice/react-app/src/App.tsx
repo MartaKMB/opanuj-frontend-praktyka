@@ -5,10 +5,12 @@ import { ButtonComponent } from './ButtonComponent';
 const App = () => {
   const [firstNum, setFirstNum] = useState<number>(0);
   const [secondNum, setSecondNum] = useState<number>(0);
-  const [resultNum, setResultNum] = useState<number | string>(0);
+  const [resultNum, setResultNum] = useState<number>(0);
+  const [errorMsg, setErrorMsg] = useState<string>();
 
   const calculateResult = (func: (a: number, b: number) => number) => {
     setResultNum(func(firstNum, secondNum));
+    secondNum === 0 ? setErrorMsg('do not divide by 0') : '';
   };
 
   return (
@@ -34,6 +36,7 @@ const App = () => {
         <ButtonComponent handleOnClick={() => calculateResult(divisionFun)} >/</ButtonComponent>
       </div>
       <div>Result: {resultNum}</div>
+      <p>{errorMsg}</p>
     </div>
   );
 };
