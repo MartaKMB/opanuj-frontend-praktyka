@@ -31,13 +31,36 @@ export const cartSlice = createSlice({
         state.items.push(newItem);
       }
     },
+    removeFromCart: (state, action: PayloadAction<Product | CartItem>) => {
+      const newItem = state.items.filter(item => item.id !== action.payload.id)
+      state.items = newItem;
+    },
+    decreaseAmount: (state, action: PayloadAction<Product | CartItem>) => {
+      const cartItem = state.items.find((item) => {
+        return item.id === action.payload.id;
+      });
+
+      if (!cartItem) {
+        return;
+      }
+  
+      if (cartItem.amount <= 1) {
+        const newItem = state.items.filter(item => item.id !== action.payload.id)
+        state.items = newItem;
+        return;
+      }
+
+      state.items.map((item) =>
+        item.id === action.payload.id ? { ...item, amount: cartItem.amount - 1 } : item
+      );
+    },
     clearCart: (state) => {
       state.items = [];
     },
   },
 });
 
-export const { addToCart, clearCart } = cartSlice.actions;
+export const { addToCart, decreaseAmount, clearCart, removeFromCart } = cartSlice.actions;
 
 export const selectCartItems = (state: RootState) => state.cart.items;
 export const selectItemAmount = (state: RootState) =>
