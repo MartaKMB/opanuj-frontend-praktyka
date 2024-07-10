@@ -40,7 +40,13 @@ export const cartSlice = createSlice({
         return item.id === action.payload.id;
       });
 
-      if (!cartItem) {
+      if (cartItem) {
+        state.items = state.items.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, amount: cartItem.amount - 1 }
+            : item
+        );
+      } else {
         return;
       }
   
@@ -49,10 +55,6 @@ export const cartSlice = createSlice({
         state.items = newItem;
         return;
       }
-
-      state.items.map((item) =>
-        item.id === action.payload.id ? { ...item, amount: cartItem.amount - 1 } : item
-      );
     },
     clearCart: (state) => {
       state.items = [];
