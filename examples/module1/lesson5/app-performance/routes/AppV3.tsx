@@ -84,27 +84,38 @@ function CommentsForm({
   const { commentsAPI } = useLoaderData() as Bootstrap;
   const [newComment, setNewComment] = useState('');
   const [newRating, setNewRating] = useState('');
+  const [isRatingCorrect, setIsRatingCorrect] = useState(true);
 
-  function storeNewComment(e: React.FormEvent<HTMLFormElement>) {
+  function storeNewComment(e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    const isNewRatingCorrect = newComment.length > 0 && Number.isInteger(parseInt(newRating, 10));
+    if (!isNewRatingCorrect) {
+      setIsRatingCorrect(false)
+      return;
+    }
+    
     dispatch({
       type: 'ADD_COMMENT',
       payload: {
         id: comments.length + 1,
         text: newComment,
         author: 'John Doe',
-        rating: parseInt(newRating, 10),
+        rating: newRating,
       },
     });
     setNewComment('');
     setNewRating('');
+    setIsRatingCorrect(isNewRatingCorrect);
+
     axios
       .post(commentsAPI, {
         comment: newComment,
         rating: newRating,
       })
       .catch(() => {
-        // Rollback the comment if the request fails
+        setIsRatingCorrect(false);
+        console.log('Error: ', newComment, newRating);
       });
   }
 
@@ -131,6 +142,9 @@ function CommentsForm({
           <button className="bg-violet-400 text-white p-2 rounded-lg mt-2">
             Submit
           </button>
+          {!isRatingCorrect && <button onClick={(e) => storeNewComment(e)} className="bg-pink-400 text-white p-2 rounded-lg mt-2">
+            Retry
+          </button>}
         </form>
       )}
     </>
