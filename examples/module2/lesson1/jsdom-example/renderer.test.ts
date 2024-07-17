@@ -28,22 +28,5 @@ describe('User renderer', () => {
     const matches = container.querySelectorAll('li');
     expect(matches).toHaveLength(2);
     matches.forEach(item => expect(item.textContent).to.contain('Name') && expect(item.textContent).to.contain('Age'));
-  });
-
-  // test('should render all users have Name and Age if admin is rendering the list', () => {
-  //   localStorage.setItem('userRole', 'admin');
-
-  //   const container = document.createElement('div');
-  //   const matches = container.querySelectorAll('li');
-  //   renderItems(container, users);
-
-  //   expect(matches).toHaveLength(3);
-  //   matches.forEach((m) => {
-  //     expect(m).toBeInTheDocument();
-  //   });
-
-  //   // expect(Array.from(container.querySelectorAll('li'))).toContain('(Admin)');
-  //   // expect(container.getByText('(Admin)')).toBeInTheDocument();
-  // });
-  
+  }); 
 });
