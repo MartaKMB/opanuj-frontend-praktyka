@@ -4,7 +4,11 @@
       "foreground": {
         "1": {
           "value": "{color.global.grey.14.value}"
+        },
+        "2": {
+          "value": "{color.global.pink.68.value}"
         }
+
       }
     }
   }
