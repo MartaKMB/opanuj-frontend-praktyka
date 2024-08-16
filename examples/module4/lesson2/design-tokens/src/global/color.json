@@ -10,6 +10,12 @@
           "value": "#262626",
           "type": "color"
         }
+      },
+      "pink": {
+        "68": {
+          "value": "#f6bcb8",
+          "type": "color"
+        }
       }
     }
   }
