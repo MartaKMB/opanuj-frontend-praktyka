@@ -1,6 +1,6 @@
 # @marta-mb/design-tokens
 
-It is practice from O:FE course with @przeprogramowani
+It is practice from O:FE course with @przeprogramowani.
 
 Design Tokens are the smallest pieces of the design system — such as colors, typography, spacing, and more. They are used in place of hard-coded values to maintain a scalable and consistent visual system for UI development.
 
