@@ -1,0 +1,13 @@
+name: Setup Tests
+description: Setup Tests For Project - Lint And Unit Tests
+
+runs:
+  using: 'composite'
+  steps:
+      - name: Lint code
+        run: npm run lint
+        shell: bash
+
+      - name: Run unit tests
+        run: npm run test
+        shell: bash
